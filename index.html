@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<title>slideshow</title>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<style type="text/css">
+body {background-color: black; color: white;}
+img#pic {display: block; position: absolute; top: 0px;}
+</style>
+</head>
+<body>
+
+<p id="str" style="text-align: center;">画像の読み込み中…</p>
+<a id="link" target="_blank"><img id="pic" name="picname"></a>
+
+<script type="text/javascript">
+pcurl = [
+    "http://f.st-hatena.com/images/fotolife/o/obelisk2/20120415/20120415091902.jpg",
+    "http://f.st-hatena.com/images/fotolife/o/obelisk2/20090402/20090402102530.jpg",
+    "http://f.st-hatena.com/images/fotolife/o/obelisk2/20140302/20140302095527.jpg",
+    "http://f.st-hatena.com/images/fotolife/o/obelisk2/20070216/20070216110659.jpg",
+    "http://farm8.staticflickr.com/5522/11988624444_ce18def908_b.jpg",
+    "https://live.staticflickr.com/5280/14369394894_026af30e93_h.jpg",
+    "https://live.staticflickr.com/65535/49032280906_5a29e29abc_h.jpg",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/o/obelisk2/20191113/20191113162451.jpg",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/o/obelisk2/20191113/20191113162516.jpg",
+    "https://c4.staticflickr.com/8/7784/17322421045_fb6503dfcc_b.jpg",
+    "https://cdn-ak.f.st-hatena.com/images/fotolife/o/obelisk2/20191115/20191115093424.jpg"
+  ];
+num = pcurl.length;
+image = [];
+current_pic = 0;
+for (var i = 0; i < num; i++) {
+  image[i] = new Image();
+  image[i].src = pcurl[i];
+}
+setInterval("dispic()", 5000);
+
+function dispic() {
+  var h = innerHeight;
+  var picx = image[current_pic].width;
+  var picy = image[current_pic].height;
+  picx = h * (picx / picy);
+  picy = h;
+  document.picname.width  = picx;
+  document.picname.height = picy;
+  
+  var a0 = document.getElementById("link");
+  var a1 = document.getElementById("pic");
+  var a2 = image[current_pic].getAttribute("src");
+  a0.setAttribute("href", location.href);
+  a1.style.left = (innerWidth - picx) / 2 + "px";
+  a1.setAttribute("src", a2);
+  
+  current_pic++;
+  if (current_pic >= num) {current_pic = 0;}
+}
+</script>
+</body>
+</html>
